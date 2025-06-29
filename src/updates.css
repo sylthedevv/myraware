@@ -56,3 +56,10 @@ body {
 	position:relative;
 	top:1px;
 }
+		   .myButton:hover {
+            rotate : -5deg;
+            transition: background-color 0.3s, rotate 0.3s;
+            transform: scale(1.07);
+			
+
+        }
