@@ -111,6 +111,39 @@
   <input type="text" id="gameSearch" placeholder="Search for a game..." />
   <p class="game-counter" id="gameCount">0 games hosted</p>
 
+  <button class="myButton" onclick="goRandomGame()">🎲 Random Game</button>
+<script>
+function goRandomGame() {
+  const games = [
+    "/games/slope/index.html",
+    "/games/1v1lol/1v1lolv3.html",
+    "/games/2048/2048.html",
+    "/games/osu!/osu!/osu!/index.html",
+    "/games/ckclk/cookie-clicker/index.html",
+    "/games/flappybird/flappybird/index.html",
+    "/games/ddlc/Doki Doki Literature Club.html",
+    "/games/omori/OMORI.html",
+    "/games/ai/Chat Bot (A._.I).html",
+    "/games/pplpg/People Playground.html",
+    "/games/classof/Class of '09.html",
+    "/games/buckshot/Buckshot Roulette.html",
+    "/games/badpar/Bad Parenting 1.html",
+    "/games/undrtale/Undertale.html",
+    "/games/ultk/ULTRAKILL.html",
+    "/games/baldi/Baldi's Basics.html",
+    "/games/bendy/Bendy and the Ink Machine.html",
+    "/games/halflife/Half Life.html",
+    "/games/minecraft/Minecraft 1.12.2.html",
+    "/games/repo/R.E.P.O.html",
+    "/games/bfdi/BFDI_ Branches.html",
+    "/games/blockblast/Block Blast.html",
+    "/games/bitlife/BitLife.html",
+    "/games/bloxorz/Bloxorz.html"
+  ];
+  const random = games[Math.floor(Math.random() * games.length)];
+  window.location.href = random;
+}
+</script>
   <div class="game-grid" id="gameList">
     <a href="https://discord.gg/cheriez"><img class="imagebutton" src="sag.jpg" alt="Suggest a game"></a>
     <a href="/games/slope/index.html"><img class="imagebutton" src="slope.jpg" alt="Slope"></a>
