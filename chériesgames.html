@@ -1,148 +1,184 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>Games</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chérie's Games</title>
+  <link rel="stylesheet" href="src/games.css" />
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      background-color: black;
+      color: #00ff00;
+      font-family: 'Courier New', Courier, monospace;
+      overflow-x: hidden;
+    }
+
+    h1, p {
+      text-align: center;
+    }
+
+    #gameSearch {
+      display: block;
+      margin: 20px auto;
+      padding: 14px 20px;
+      width: 90%;
+      max-width: 500px;
+      font-size: 16px;
+      color: #00ff00;
+      background-color: #111;
+      border: 2px solid #00ff00;
+      border-radius: 8px;
+      outline: none;
+      box-shadow: 0 0 10px #00ff00;
+      font-family: 'Courier New', Courier, monospace;
+    }
+
+    #gameSearch:focus {
+      background-color: #000;
+      box-shadow: 0 0 15px #00ff00;
+    }
+
+    #gameSearch::placeholder {
+      color: #33ff33;
+      opacity: 0.6;
+    }
+
+    .game-counter {
+      text-align: center;
+      margin-top: 10px;
+      margin-bottom: 20px;
+    }
+
+    .game-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .imagebutton {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 6px;
+      border: 2px solid #00ff00;
+      box-shadow: 0 0 6px #00ff00;
+      transition: transform 0.2s ease;
+    }
+
+    .imagebutton:hover {
+      transform: scale(1.07);
+      box-shadow: 0 0 12px #00ff00;
+    }
+
+    .myButton {
+      margin: 30px auto;
+      display: block;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 16px;
+      color: #00ff00;
+      background-color: black;
+      border: 2px solid #00ff00;
+      padding: 12px 24px;
+      border-radius: 6px;
+      cursor: pointer;
+      box-shadow: 0 0 8px #00ff00;
+      transition: all 0.2s ease;
+    }
+
+    .myButton:hover {
+      background-color: #00ff00;
+      color: black;
+      box-shadow: 0 0 16px #00ff00;
+      transform: scale(1.05);
+    }
+
+    @media (max-width: 480px) {
+      .imagebutton {
+        width: 80px;
+        height: 80px;
+      }
+    }
+  </style>
 </head>
 <body>
-     <link rel="stylesheet" href="src/games.css">
-    <div class="site-container">
-     <h1>Chérie's Games</h1>
-        <p style="opacity: 0.5; margin-top: 5px;">IF A PORT DOESNT WORK, JOIN THE DISCORD SERVER AND LET US KNOW!</p>
-<input type="text" id="gameSearch" placeholder="Search for a game...">
-<style>
-  #gameSearch {
-    display: block;
-    margin: 30px auto;
-    padding: 14px 20px;
-    width: 80%;
-    max-width: 500px;
-    font-size: 16px;
-    color: #00ff00;
-    background-color: #111;
-    border: 2px solid #00ff00;
-    border-radius: 8px;
-    outline: none;
-    box-shadow: 0 0 10px #00ff00;
-    transition: 0.3s ease;
-    font-family: 'Courier New', Courier, monospace;
-  }
 
-  #gameSearch:focus {
-    background-color: #000;
-    box-shadow: 0 0 15px #00ff00;
-  }
+  <h1>Chérie's Games</h1>
+  <p style="opacity: 0.5;">IF A PORT DOESN'T WORK, JOIN THE DISCORD SERVER AND LET US KNOW!</p>
 
-  #gameSearch::placeholder {
-    color: #33ff33;
-    opacity: 0.6;
-  }
+  <input type="text" id="gameSearch" placeholder="Search for a game..." />
+  <p class="game-counter" id="gameCount">0 games hosted</p>
 
-  body {
-    background-color: black;
-    color: #00ff00;
-    font-family: 'Courier New', Courier, monospace;
-  }
-</style>
-</div>
-</div>
-<p>Total games hosted: <span id="gameCount">0</span></p>
-<div id="gameList">
-<a href="https://discord.gg/cheriez"><img class="imagebutton" src="sag.jpg" alt="Suggest"></a>
-<a href="/games/slope/index.html"><img class="imagebutton" src="slope.jpg" alt="Slope"></a>
-<a href="/games/1v1lol/1v1lolv3.html"><img class="imagebutton" src="1v1.lol.webp" alt="1v1lol"></a>
-<a href="/games/2048/2048.html"><img class="imagebutton" src="images.png" alt="2048"></a>
-<a href="/games/osu!/osu!/osu!/index.html"><img class="imagebutton" src="osu.png" alt="Osu"></a>
-<a href="/games/ckclk/cookie-clicker/index.html"><img class="imagebutton" src="ckclk.jpeg" alt="cookie clicker"></a>
-</div>
-<div id="gameList">
-<a href="/games/flappybird/flappybird/index.html"><img class="imagebutton" src="flapbird.jpg" alt="flappybird"></a>
-<a href="/games/ddlc/Doki Doki Literature Club.html"><img class="imagebutton" src="download (1).jpg" alt="Doki doki Literature Club"></a>
-<a href="/games/omori/OMORI.html"><img class="imagebutton"  src="download.jpg"alt="omori"></a>
-<a href="/games/ai/Chat Bot (A._.I).html"><img class="imagebutton"  src="ai.png" alt="ai"></a>
-<a href="/games/pplpg/People Playground.html"><img class="imagebutton"  src="194.png" alt=""></a>
-<a href="/games/classof/Class of '09.html"><img class="imagebutton"  src="classof.png"></a>
-</div>
-<div id="gameList">
-<a href="/games/buckshot/Buckshot Roulette.html"><img class="imagebutton"  src="205.png"></a>
-<a href="/games/badpar/Bad Parenting 1.html"><img class="imagebutton"  src="166.png"></a>
-<a href="/games/undrtale/Undertale.html"><img class="imagebutton"  src="184.png"></a>
-<a href="/games/ultk/ULTRAKILL.html"><img class="imagebutton"  src="196.png"></a>
-<a href="/games/baldi/Baldi's Basics.html"><img class="imagebutton"  src="65.png"></a>
-<a href="/games/bendy/Bendy and the Ink Machine.html"><img class="imagebutton"  src="bendy.png"></a>
-</div>
-<div id="gameList">
-<a href="/games/halflife/Half Life.html"><img class="imagebutton"  src="halflife.png"></a>
-<a href="/games/minecraft/Minecraft 1.12.2.html"><img class="imagebutton" src="minecraft.png"></a>
-<a href="/games/repo/R.E.P.O.html"><img class="imagebutton" src="repo.png"></a>
-<a href="/games/bfdi/BFDI_ Branches.html"><img class="imagebutton" src="bfdi.png"></a>
-<a href="/games/blockblast/Block Blast.html"><img class="imagebutton" src="blockblast.png"></a>
-<a href="/games/bitlife/BitLife.html"><img class="imagebutton" src="bitlife.png"></a>
-</div>
-<div id="gameList">
-      <a href="/games/bloxorz/Bloxorz.html"><img class="imagebutton" src="bloxorz.png"></a>
-</div>
-<script>
-  window.addEventListener("DOMContentLoaded", () => {
-    const allLinks = document.querySelectorAll("a[href]");
-    let gameCount = 0;
+  <div class="game-grid" id="gameList">
+    <a href="https://discord.gg/cheriez"><img class="imagebutton" src="sag.jpg" alt="Suggest a game"></a>
+    <a href="/games/slope/index.html"><img class="imagebutton" src="slope.jpg" alt="Slope"></a>
+    <a href="/games/1v1lol/1v1lolv3.html"><img class="imagebutton" src="1v1.lol.webp" alt="1v1lol"></a>
+    <a href="/games/2048/2048.html"><img class="imagebutton" src="images.png" alt="2048"></a>
+    <a href="/games/osu!/osu!/osu!/index.html"><img class="imagebutton" src="osu.png" alt="Osu"></a>
+    <a href="/games/ckclk/cookie-clicker/index.html"><img class="imagebutton" src="ckclk.jpeg" alt="Cookie Clicker"></a>
+    <a href="/games/flappybird/flappybird/index.html"><img class="imagebutton" src="flapbird.jpg" alt="Flappy Bird"></a>
+    <a href="/games/ddlc/Doki Doki Literature Club.html"><img class="imagebutton" src="download (1).jpg" alt="Doki Doki Literature Club"></a>
+    <a href="/games/omori/OMORI.html"><img class="imagebutton" src="download.jpg" alt="Omori"></a>
+    <a href="/games/ai/Chat Bot (A._.I).html"><img class="imagebutton" src="ai.png" alt="AI Chat Bot"></a>
+    <a href="/games/pplpg/People Playground.html"><img class="imagebutton" src="194.png" alt="People Playground"></a>
+    <a href="/games/classof/Class of '09.html"><img class="imagebutton" src="classof.png" alt="Class of '09"></a>
+    <a href="/games/buckshot/Buckshot Roulette.html"><img class="imagebutton" src="205.png" alt="Buckshot Roulette"></a>
+    <a href="/games/badpar/Bad Parenting 1.html"><img class="imagebutton" src="166.png" alt="Bad Parenting"></a>
+    <a href="/games/undrtale/Undertale.html"><img class="imagebutton" src="184.png" alt="Undertale"></a>
+    <a href="/games/ultk/ULTRAKILL.html"><img class="imagebutton" src="196.png" alt="ULTRAKILL"></a>
+    <a href="/games/baldi/Baldi's Basics.html"><img class="imagebutton" src="65.png" alt="Baldi's Basics"></a>
+    <a href="/games/bendy/Bendy and the Ink Machine.html"><img class="imagebutton" src="bendy.png" alt="Bendy and the Ink Machine"></a>
+    <a href="/games/halflife/Half Life.html"><img class="imagebutton" src="halflife.png" alt="Half Life"></a>
+    <a href="/games/minecraft/Minecraft 1.12.2.html"><img class="imagebutton" src="minecraft.png" alt="Minecraft"></a>
+    <a href="/games/repo/R.E.P.O.html"><img class="imagebutton" src="repo.png" alt="R.E.P.O."></a>
+    <a href="/games/bfdi/BFDI_ Branches.html"><img class="imagebutton" src="bfdi.png" alt="BFDI Branches"></a>
+    <a href="/games/blockblast/Block Blast.html"><img class="imagebutton" src="blockblast.png" alt="Block Blast"></a>
+    <a href="/games/bitlife/BitLife.html"><img class="imagebutton" src="bitlife.png" alt="BitLife"></a>
+    <a href="/games/bloxorz/Bloxorz.html"><img class="imagebutton" src="bloxorz.png" alt="Bloxorz"></a>
+  </div>
 
-    allLinks.forEach(link => {
-      const href = link.getAttribute("href");
-      if (href.startsWith("/games/") && href.endsWith(".html")) {
-        gameCount++;
-      }
+  <button class="myButton" onclick="location.href='index.html'">Go Back</button>
+
+  <script>
+    // Game search
+    const searchInput = document.getElementById("gameSearch");
+    const games = document.querySelectorAll("#gameList a");
+
+    searchInput.addEventListener("input", () => {
+      const query = searchInput.value.toLowerCase();
+      games.forEach(game => {
+        const alt = game.querySelector("img").alt.toLowerCase();
+        game.style.display = alt.includes(query) ? "inline-block" : "none";
+      });
     });
 
-    document.getElementById("gameCount").textContent = gameCount;
-  });
-</script>
-<button class="myButton"onclick="location.href='index.html';">Go Back</button>
-<script>
-  const searchInput = document.getElementById("gameSearch");
-  const games = document.querySelectorAll("#gameList a");
+    // Game counter animation
+    window.addEventListener("DOMContentLoaded", () => {
+      const allLinks = document.querySelectorAll("a[href]");
+      let gameTotal = 0;
 
-  searchInput.addEventListener("input", () => {
-    const query = searchInput.value.toLowerCase();
+      allLinks.forEach(link => {
+        const href = link.getAttribute("href");
+        if (href.startsWith("/games/") && href.endsWith(".html")) {
+          gameTotal++;
+        }
+      });
 
-    games.forEach(game => {
-      const alt = game.querySelector("img").alt.toLowerCase();
-      if (alt.includes(query)) {
-        game.style.display = "inline-block";
-      } else {
-        game.style.display = "none";
-      }
+      const counterElement = document.getElementById("gameCount");
+      let current = 0;
+
+      const counter = setInterval(() => {
+        if (current < gameTotal) {
+          current++;
+          const label = current === 1 ? "game hosted" : "games hosted";
+          counterElement.textContent = `${current} ${label}`;
+        } else {
+          clearInterval(counter);
+        }
+      }, 40);
     });
-  });
-</script>
-<script>
-  window.addEventListener("DOMContentLoaded", () => {
-    const allLinks = document.querySelectorAll("a[href]");
-    let gameTotal = 0;
-
-  
-    allLinks.forEach(link => {
-      const href = link.getAttribute("href");
-      if (href.startsWith("/games/") && href.endsWith(".html")) {
-        gameTotal++;
-      }
-    });
-
-    const counterElement = document.getElementById("gameCount");
-    let current = 0;
-
-
-    const counter = setInterval(() => {
-      if (current < gameTotal) {
-        current++;
-        const label = current === 1 ? "game hosted" : "games hosted";
-        counterElement.textContent = `${current} ${label}`;
-      } else {
-        clearInterval(counter);
-      }
-    }, 40);
-  });
-</script>
+  </script>
 </body>
+</html>
