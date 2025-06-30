@@ -9,7 +9,24 @@
      <link rel="stylesheet" href="src/games.css">
      <h1>Chérie's Games</h1>
         <p style="opacity: 0.5; margin-top: 5px;">IF A PORT DOESNT WORK, JOIN THE DISCORD SERVER AND LET US KNOW!</p>
-<div>
+<p>Total games hosted: <span id="gameCount">0</span></p>
+
+<script>
+  const allLinks = document.querySelectorAll("a[href]");
+  let gameCount = 0;
+
+  allLinks.forEach(link => {
+    const href = link.getAttribute("href");
+
+    // Check if it links to an HTML file inside /games/
+    if (href.startsWith("/games/") && href.endsWith(".html")) {
+      gameCount++;
+    }
+  });
+
+  document.getElementById("gameCount").textContent = gameCount;
+</script>
+        <div>
 <a href="https://discord.gg/cheriez"><img class="imagebutton" src="sag.jpg"></a>
 <a href="/games/slope/index.html"><img class="imagebutton" src="slope.jpg"></a>
 <a href="/games/1v1lol/1v1lolv3.html"><img class="imagebutton" src="1v1.lol.webp"></a>
