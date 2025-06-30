@@ -9,40 +9,25 @@
      <link rel="stylesheet" href="src/games.css">
      <h1>Chérie's Games</h1>
         <p style="opacity: 0.5; margin-top: 5px;">IF A PORT DOESNT WORK, JOIN THE DISCORD SERVER AND LET US KNOW!</p>
-<p>Total games hosted: <span id="gameCount">0</span></p>
-
-<script>
-  const allLinks = document.querySelectorAll("a[href]");
-  let gameCount = 0;
-
-  allLinks.forEach(link => {
-    const href = link.getAttribute("href");
-
-    // Check if it links to an HTML file inside /games/
-    if (href.startsWith("/games/") && href.endsWith(".html")) {
-      gameCount++;
-    }
-  });
-
-  document.getElementById("gameCount").textContent = gameCount;
-</script>
-        <div>
-<a href="https://discord.gg/cheriez"><img class="imagebutton" src="sag.jpg"></a>
-<a href="/games/slope/index.html"><img class="imagebutton" src="slope.jpg"></a>
-<a href="/games/1v1lol/1v1lolv3.html"><img class="imagebutton" src="1v1.lol.webp"></a>
-<a href="/games/2048/2048.html"><img class="imagebutton" src="images.png"></a>
-<a href="/games/osu!/osu!/osu!/index.html"><img class="imagebutton" src="osu.png"></a>
-<a href="/games/ckclk/cookie-clicker/index.html"><img class="imagebutton" src="ckclk.jpeg"></a>
+<input type="text" id="gameSearch" placeholder="Search for a game..." style="width: 100%; padding: 10px; font-size: 16px; margin-bottom: 20px;">
 </div>
-<div>
-<a href="/games/flappybird/flappybird/index.html"><img class="imagebutton" src="flapbird.jpg"></a>
-<a href="/games/ddlc/Doki Doki Literature Club.html"><img class="imagebutton" src="download (1).jpg"></a>
+<div id="gameList">
+<a href="https://discord.gg/cheriez"><img class="imagebutton" src="sag.jpg" alt="Suggest"></a>
+<a href="/games/slope/index.html"><img class="imagebutton" src="slope.jpg" alt="Slope"></a>
+<a href="/games/1v1lol/1v1lolv3.html"><img class="imagebutton" src="1v1.lol.webp" alt="1v1lol"></a>
+<a href="/games/2048/2048.html"><img class="imagebutton" src="images.png" alt="2048"></a>
+<a href="/games/osu!/osu!/osu!/index.html"><img class="imagebutton" src="osu.png" alt="Osu"></a>
+<a href="/games/ckclk/cookie-clicker/index.html"><img class="imagebutton" src="ckclk.jpeg" alt="cookie clicker"></a>
+</div>
+<div id="gameList">
+<a href="/games/flappybird/flappybird/index.html"><img class="imagebutton" src="flapbird.jpg" alt="flappybird"></a>
+<a href="/games/ddlc/Doki Doki Literature Club.html"><img class="imagebutton" src="download (1).jpg" alt="Doki doki Literature Club" alt="ddlc"></a>
 <a href="/games/omori/OMORI.html"><img class="imagebutton"  src="download.jpg"></a>
 <a href="/games/ai/Chat Bot (A._.I).html"><img class="imagebutton"  src="ai.png"></a>
 <a href="/games/pplpg/People Playground.html"><img class="imagebutton"  src="194.png"></a>
 <a href="/games/classof/Class of '09.html"><img class="imagebutton"  src="classof.png"></a>
 </div>
-<div>
+<div id="gameList">
 <a href="/games/buckshot/Buckshot Roulette.html"><img class="imagebutton"  src="205.png"></a>
 <a href="/games/badpar/Bad Parenting 1.html"><img class="imagebutton"  src="166.png"></a>
 <a href="/games/undrtale/Undertale.html"><img class="imagebutton"  src="184.png"></a>
@@ -50,15 +35,32 @@
 <a href="/games/baldi/Baldi's Basics.html"><img class="imagebutton"  src="65.png"></a>
 <a href="/games/bendy/Bendy and the Ink Machine.html"><img class="imagebutton"  src="bendy.png"></a>
 </div>
-<div>
-    <a href="/games/halflife/Half Life.html"><img class="imagebutton"  src="halflife.png"></a>
-    <a href="/games/minecraft/Minecraft 1.12.2.html"><img class="imagebutton" src="minecraft.png"></a>
-    <a href="/games/repo/R.E.P.O.html"><img class="imagebutton" src="repo.png"></a>
-    <a href="/games/bfdi/BFDI_ Branches.html"><img class="imagebutton" src="bfdi.png"></a>
-    <a href="/games/blockblast/Block Blast.html"><img class="imagebutton" src="blockblast.png"></a>
-    <a href="/games/bitlife/BitLife.html"><img class="imagebutton" src="bitlife.png"></a>
+<div id="gameList">
+<a href="/games/halflife/Half Life.html"><img class="imagebutton"  src="halflife.png"></a>
+<a href="/games/minecraft/Minecraft 1.12.2.html"><img class="imagebutton" src="minecraft.png"></a>
+<a href="/games/repo/R.E.P.O.html"><img class="imagebutton" src="repo.png"></a>
+<a href="/games/bfdi/BFDI_ Branches.html"><img class="imagebutton" src="bfdi.png"></a>
+<a href="/games/blockblast/Block Blast.html"><img class="imagebutton" src="blockblast.png"></a>
+<a href="/games/bitlife/BitLife.html"><img class="imagebutton" src="bitlife.png"></a>
 </div>
-<div>
+<div id="gameList">
       <a href="/games/bloxorz/Bloxorz.html"><img class="imagebutton" src="bloxorz.png"></a>
 </div>
 <button class="myButton"onclick="location.href='index.html';">Go Back</button>
+<script>
+  const searchInput = document.getElementById("gameSearch");
+  const games = document.querySelectorAll("#gameList a");
+
+  searchInput.addEventListener("input", () => {
+    const query = searchInput.value.toLowerCase();
+
+    games.forEach(game => {
+      const alt = game.querySelector("img").alt.toLowerCase();
+      if (alt.includes(query)) {
+        game.style.display = "inline-block";
+      } else {
+        game.style.display = "none";
+      }
+    });
+  });
+</script>
