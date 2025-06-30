@@ -27,7 +27,8 @@
 </head>
 <body>
     <div class="image-container">
-        <img src="neon-cat-cute.gif">
+   <a href="https://www.youtube.com/watch?v=2yJgwwDcgV8"><img class="imagebutton" src="neon-cat-cute.gif"></a>
+   
     </div>
 <h2 class="terminal-header">chérieWare v1.5</h2>
 <p class="terminal-subtext">You're safe using chérieWare.</p>
@@ -38,7 +39,21 @@
     <input id="uv-address" type="text" placeholder="Search the web!" class="terminal-input" />
   </form>
 </div>
-    </div>
+
+<script>
+  const form = document.getElementById('uv-form');
+  const addressInput = document.getElementById('uv-address');
+  const searchEngine = document.getElementById('uv-search-engine').value;
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    const query = encodeURIComponent(addressInput.value.trim());
+    if (query) {
+      const url = searchEngine.replace('%s', query);
+      window.location.href = url;
+    }
+  });
+</script>
     
     <div>
 <a href="chériesgames.html" class="myButton">Games</a>
@@ -54,8 +69,5 @@
     <script src="/service/search.js" defer></script>
     <script src="/service/index.js" defer></script>
     <script src="/service/error.js" defer></script>
-<script src="
-https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js
-"></script>
-    <script type='text/javascript' src='
+    <script type='text/javascript' defer></script>
 </html>

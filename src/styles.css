@@ -31,28 +31,15 @@ body {
     object-fit: cover;
 }
 
-.search-container {
-    margin-top: 20px;
-    display: flex;
-    align-items: center;
-    background-color: #171717;
-    border-radius: 25px;
-    padding: 10px;
-    width: 500px;
-}
 
-.search-container input {
+input {
     border: none;
-    background: none;
+    background: #171717;
     color: white;
     width: 500px;
     padding: 10px;
-    border-radius: 50px;
+    border-radius: 20px;
     outline: none;
-}
-
-.search-container input::placeholder {
-    color: #bbb;
 }
 
 .bottom-left-buttons {
@@ -71,8 +58,7 @@ body {
     border-radius: 50px;
     cursor: pointer;
     font-size: 14px;
-   
-
+  
 }
 
 .myButton {
@@ -90,6 +76,8 @@ body {
   cursor: pointer;
   text-shadow: 0 0 3px #00ff00;
   display: inline-block;
+  text-decoration: none;
+  margin-left: 10px;
 }
 
 .myButton:hover {
@@ -158,7 +146,7 @@ body {
 }
 
 
-.imagebuton {
+.imagebutton {
   width: 100px;
   height: 100px;
   object-fit: cover;
@@ -168,7 +156,7 @@ body {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.imagebuton:hover {
+.imagebutton:hover {
   transform: scale(1.05);
   box-shadow: 0 0 16px #00ff00;
 }
@@ -217,4 +205,20 @@ body {
   .terminal-subtext {
     font-size: 12px;
   }
+}
+
+.imagebutton {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 2px solid #00ff00;
+  box-shadow: 0 0 8px #00ff00;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  margin-bottom: 10px;
+}
+
+.imagebutton:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 16px #00ff00;
 }
