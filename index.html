@@ -1,64 +1,66 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-            <!-- Google tag (gtag.js) -->
-<div id="particles-js"></div>
+  <meta charset="UTF-8">
+  <title>Booting chérieWare...</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: black;
+      color: #00ff00;
+      font-family: 'Courier New', Courier, monospace;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
 
-<script src="particles.js"></script>
+    #terminal {
+      white-space: pre-wrap;
+      text-align: left;
+      max-width: 90%;
+      line-height: 1.4em;
+      font-size: 1.1em;
+    }
 
-            <script async src="https://www.googletagmanager.com/gtag/js?id=G-TFZ72L5FPQ"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-    
-      gtag('config', 'G-TFZ72L5FPQ');
-    </script>
-    <title>chérieWare</title>
-    <link rel="icon" type="image/x-icon" href="41HXUK8edZL.webp">
-    <link rel="stylesheet" href="src/styles.css">
-    <meta property="og:title" content="chérieWare">
-    <meta property="og:description" content="Safe proxy browser featuring over 25+ Unblocked games!">
-    <meta property="og:image" content="41HXUK8edZL.webp">
-    <meta property="og:image:width" content="200">
-    <meta property="og:image:height" content="200">
-    <meta name="theme-color" content="#0d0d0d">
-    <meta name="msapplication-TileColor" content="#262261">
+    .blinking-cursor::after {
+      content: '_';
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+  </style>
 </head>
-<body>
-    <div class="image-container">
-        <img src="neon-cat-cute.gif">
-    </div>
+<body onload="bootUp()">
+  <div id="terminal" class="blinking-cursor"></div>
 
-    <h2 style="margin-top: 5px;">chérieWare v1.5</h2>
-    <p style="opacity: 0.5; margin-top: 10px;">You're safe using chérieWare.</p>
+  <script>
+    const lines = [
+      "Booting chérieWare v1.5...",
+      "Initializing system...",
+      "Bypassing network filter...",
+      "Loading unblocked games...",
+      "Access granted.",
+      "Launching homepage.."
+    ];
 
-    <div class="search-container">
-        <form id="uv-form">
+    let index = 0;
 
-            <input id="uv-search-engine" value="https://www.bing.com/search?q=%s" type="hidden"/> 
-            <input id="uv-address" type="text" placeholder="Search the web!" />
-
-        </form>
-    </div>
-    
-    <div>
-<a href="chériesgames.html" class="myButton">Games</a>
-<a href="partners.html" class="myButton">Partners</a> 
-<a href="updates.html" class="myButton">What's New?</a>
-<a href="https://discord.gg/cheriez" class="myButton">Our Discord</a>
-<a href="404.html" class="myButton">Donate [Soon!]</a>
- </div>
-    </div>
-    <script src="/src/script.js" defer></script>
-    <script src="/service/uv/uv.bundle.js" defer></script>
-    <script src="/service/uv/uv.config.js" defer></script>
-    <script src="/service/register-sw.js" defer></script>
-    <script src="/service/search.js" defer></script>
-    <script src="/service/index.js" defer></script>
-    <script src="/service/error.js" defer></script>
-<script src="
-https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js
-"></script>
-    <script type='text/javascript' src='//pl26987240.profitableratecpm.com/95/23/42/9523427ec06725bcc2406f8fd8bc91d0.js'></script>
-</body> 
+    function bootUp() {
+      const terminal = document.getElementById('terminal');
+      const interval = setInterval(() => {
+        if (index < lines.length) {
+          terminal.innerHTML += lines[index++] + "\n";
+        } else {
+          clearInterval(interval);
+          setTimeout(() => {
+            window.location.href = "homepage.html";
+          }, 1000);
+        }
+      }, 900);
+    }
+  </script>
+</body>
 </html>
