@@ -38,17 +38,13 @@
 
   <script>
     const lines = [
-  "Loading chérieWare v1.5...",
-  "Loading Proxy...",
-  "Loading Games...",
-  "1/25 Games Loaded",
-   "5/25 Games Loaded",
-   "15/25 Games Loaded",
-   "20/25 Games Loaded",
-   "25/25 Games Loaded",
-  "Bypassing school firewall...",
-  "Welcome to chérieWare v1.5! "
-];
+      "Booting chérieWare v1.5...",
+      "Initializing system...",
+      "Bypassing network filter...",
+      "Loading unblocked games...",
+      "Access granted.",
+      "Launching game hub..."
+    ];
 
     let index = 0;
 
@@ -60,7 +56,7 @@
         } else {
           clearInterval(interval);
           setTimeout(() => {
-            window.location.href = "index.html";
+            window.location.href = "index.html"; // redirect to index.html
           }, 1000);
         }
       }, 900);
