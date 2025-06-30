@@ -102,3 +102,8 @@ body {
     font-family: 'Courier New', Courier, monospace;
   }
         
+.site-container {
+  max-width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+}
