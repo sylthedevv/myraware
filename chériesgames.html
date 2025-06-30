@@ -9,8 +9,44 @@
      <link rel="stylesheet" href="src/games.css">
      <h1>Chérie's Games</h1>
         <p style="opacity: 0.5; margin-top: 5px;">IF A PORT DOESNT WORK, JOIN THE DISCORD SERVER AND LET US KNOW!</p>
-<input type="text" id="gameSearch" placeholder="Search for a game..." style="width: 100%; padding: 10px; font-size: 16px; margin-bottom: 20px;">
+<input type="text" id="gameSearch" placeholder="Search for a game...">
+<style>
+  /* Overall styling for the search bar */
+  #gameSearch {
+    display: block;
+    margin: 30px auto;
+    padding: 14px 20px;
+    width: 80%;
+    max-width: 500px;
+    font-size: 16px;
+    color: #00ff00;
+    background-color: #111;
+    border: 2px solid #00ff00;
+    border-radius: 8px;
+    outline: none;
+    box-shadow: 0 0 10px #00ff00;
+    transition: 0.3s ease;
+    font-family: 'Courier New', Courier, monospace;
+  }
+
+  #gameSearch:focus {
+    background-color: #000;
+    box-shadow: 0 0 15px #00ff00;
+  }
+
+  #gameSearch::placeholder {
+    color: #33ff33;
+    opacity: 0.6;
+  }
+
+  body {
+    background-color: black;
+    color: #00ff00;
+    font-family: 'Courier New', Courier, monospace;
+  }
+</style>
 </div>
+<p>Total games hosted: <span id="gameCount">0</span></p>
 <div id="gameList">
 <a href="https://discord.gg/cheriez"><img class="imagebutton" src="sag.jpg" alt="Suggest"></a>
 <a href="/games/slope/index.html"><img class="imagebutton" src="slope.jpg" alt="Slope"></a>
@@ -21,10 +57,10 @@
 </div>
 <div id="gameList">
 <a href="/games/flappybird/flappybird/index.html"><img class="imagebutton" src="flapbird.jpg" alt="flappybird"></a>
-<a href="/games/ddlc/Doki Doki Literature Club.html"><img class="imagebutton" src="download (1).jpg" alt="Doki doki Literature Club" alt="ddlc"></a>
-<a href="/games/omori/OMORI.html"><img class="imagebutton"  src="download.jpg"></a>
-<a href="/games/ai/Chat Bot (A._.I).html"><img class="imagebutton"  src="ai.png"></a>
-<a href="/games/pplpg/People Playground.html"><img class="imagebutton"  src="194.png"></a>
+<a href="/games/ddlc/Doki Doki Literature Club.html"><img class="imagebutton" src="download (1).jpg" alt="Doki doki Literature Club"></a>
+<a href="/games/omori/OMORI.html"><img class="imagebutton"  src="download.jpg"alt="omori"></a>
+<a href="/games/ai/Chat Bot (A._.I).html"><img class="imagebutton"  src="ai.png" alt="ai"></a>
+<a href="/games/pplpg/People Playground.html"><img class="imagebutton"  src="194.png" alt=""></a>
 <a href="/games/classof/Class of '09.html"><img class="imagebutton"  src="classof.png"></a>
 </div>
 <div id="gameList">
@@ -46,6 +82,21 @@
 <div id="gameList">
       <a href="/games/bloxorz/Bloxorz.html"><img class="imagebutton" src="bloxorz.png"></a>
 </div>
+<script>
+  window.addEventListener("DOMContentLoaded", () => {
+    const allLinks = document.querySelectorAll("a[href]");
+    let gameCount = 0;
+
+    allLinks.forEach(link => {
+      const href = link.getAttribute("href");
+      if (href.startsWith("/games/") && href.endsWith(".html")) {
+        gameCount++;
+      }
+    });
+
+    document.getElementById("gameCount").textContent = gameCount;
+  });
+</script>
 <button class="myButton"onclick="location.href='index.html';">Go Back</button>
 <script>
   const searchInput = document.getElementById("gameSearch");
@@ -64,3 +115,32 @@
     });
   });
 </script>
+<script>
+  window.addEventListener("DOMContentLoaded", () => {
+    const allLinks = document.querySelectorAll("a[href]");
+    let gameTotal = 0;
+
+  
+    allLinks.forEach(link => {
+      const href = link.getAttribute("href");
+      if (href.startsWith("/games/") && href.endsWith(".html")) {
+        gameTotal++;
+      }
+    });
+
+    const counterElement = document.getElementById("gameCount");
+    let current = 0;
+
+
+    const counter = setInterval(() => {
+      if (current < gameTotal) {
+        current++;
+        const label = current === 1 ? "game hosted" : "games hosted";
+        counterElement.textContent = `${current} ${label}`;
+      } else {
+        clearInterval(counter);
+      }
+    }, 40);
+  });
+</script>
+</body>
