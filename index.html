@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-     <link rel="stylesheet" href="src/loading.css">
-    <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Booting chérieWare...</title>
   <style>
     body {
@@ -15,14 +14,15 @@
       justify-content: center;
       align-items: center;
       height: 100vh;
+      text-align: left;
+      padding: 20px;
     }
 
     #terminal {
       white-space: pre-wrap;
-      text-align: left;
-      max-width: 90%;
-      line-height: 1.4em;
-      font-size: 1.1em;
+      max-width: 100%;
+      font-size: 1rem;
+      line-height: 1.5;
     }
 
     .blinking-cursor::after {
@@ -33,6 +33,13 @@
     @keyframes blink {
       50% { opacity: 0; }
     }
+
+    @media (max-width: 480px) {
+      #terminal {
+        font-size: 0.9rem;
+        line-height: 1.4;
+      }
+    }
   </style>
 </head>
 <body onload="bootUp()">
@@ -41,14 +48,13 @@
   <script>
     const lines = [
       "Booting chérieWare v1.5...",
-      "Loading unblocked games...",
       "Access granted.",
     ];
 
     let index = 0;
 
     function bootUp() {
-      const terminal = document.getElementById('terminal');
+      const terminal = document.getElementById("terminal");
       const interval = setInterval(() => {
         if (index < lines.length) {
           terminal.innerHTML += lines[index++] + "\n";
@@ -56,9 +62,9 @@
           clearInterval(interval);
           setTimeout(() => {
             window.location.href = "homepage.html";
-          }, 1000);
+          }, 800);
         }
-      }, 900);
+      }, 700);
     }
   </script>
 </body>
