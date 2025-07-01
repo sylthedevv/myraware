@@ -10,12 +10,11 @@ const server = http.createServer(app);
 const io = socketIo(server);
 
 const SECRET_KEY = process.env.JWT_SECRET || 'default_secret';
+let onlineUsers = 0;
 
 app.use(express.static(__dirname + '/public'));
 app.use(express.json());
 app.use(cookieParser());
-
-let onlineUsers = 0;
 
 app.post('/login', (req, res) => {
   const { username, password } = req.body;
@@ -39,7 +38,6 @@ app.post('/login', (req, res) => {
 io.use((socket, next) => {
   const token = socket.handshake.auth.token;
   if (!token) return next(new Error('No token'));
-
   try {
     const decoded = jwt.verify(token, SECRET_KEY);
     socket.username = decoded.username;
@@ -55,6 +53,7 @@ io.on('connection', (socket) => {
   io.emit('user count', onlineUsers);
 
   console.log(`✅ ${socket.username} (${socket.role}) connected`);
+
   if (socket.role === 'owner' || socket.role === 'admin') {
     io.emit('chat message', {
       username: 'System',
@@ -82,3 +81,4 @@ const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
   console.log(`🚀 Server running at http://localhost:${PORT}`);
 });
+app.use(express.static(__dirname + '/public'));
