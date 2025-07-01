@@ -1,136 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>chérieWare Terminal Chat</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="chatbox.css">
-  <style>
-    body {
-      background-color: black;
-      color: lime;
-      font-family: monospace;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      height: 100vh;
-      margin: 0;
-    }
-
-    #chatBox {
-      width: 90%;
-      max-width: 600px;
-      margin-top: 40px;
-    }
-
-    #chatlog {
-      border: 1px solid lime;
-      padding: 10px;
-      height: 300px;
-      overflow-y: auto;
-      background: #000;
-      margin-bottom: 10px;
-    }
-
-    #userCount {
-      margin-bottom: 8px;
-      color: gold;
-      font-style: italic;
-      text-align: center;
-    }
-
-    input {
-      background: #111;
-      color: lime;
-      border: 1px solid lime;
-      padding: 10px;
-      width: 100%;
-    }
-
-    .tag {
-      font-weight: bold;
-      margin-right: 4px;
-    }
-
-    .owner-tag {
-      background: linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet);
-      background-clip: text;
-      -webkit-background-clip: text;
-      color: transparent;
-      -webkit-text-fill-color: transparent;
-      animation: rainbow 5s linear infinite;
-    }
-
-    .admin-tag {
-      background: linear-gradient(90deg, gold, orange);
-      background-clip: text;
-      -webkit-background-clip: text;
-      color: transparent;
-      -webkit-text-fill-color: transparent;
-    }
-
-    @keyframes rainbow {
-      0% { filter: hue-rotate(0deg); }
-      100% { filter: hue-rotate(360deg); }
-    }
-  </style>
+<meta charset="UTF-8" />
+<title>chérieWare Terminal Chat (Firebase)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+  body {
+    background-color: black;
+    color: lime;
+    font-family: monospace;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+  }
+  #loginBox, #chatBox {
+    width: 90%;
+    max-width: 600px;
+  }
+  input, button {
+    background: #111;
+    color: lime;
+    border: 1px solid lime;
+    padding: 10px;
+    margin: 5px 0;
+    width: 100%;
+  }
+  #chatlog {
+    border: 1px solid lime;
+    padding: 10px;
+    height: 300px;
+    overflow-y: auto;
+    background: #000;
+    margin-bottom: 10px;
+  }
+  .tag {
+    font-weight: bold;
+    margin-right: 4px;
+  }
+  #userCount {
+    margin-bottom: 8px;
+    color: gold;
+    font-style: italic;
+    text-align: center;
+  }
+</style>
 </head>
 <body>
-  <div id="userCount">Users online: 0</div>
 
-  <div id="chatBox">
-    <div id="chatlog"></div>
-    <form id="chatForm">
-      <span style="color:lime;">guest@cherieware:</span><span style="color:cyan;">~</span>$
-      <input type="text" id="messageInput" autocomplete="off" placeholder="Type a message..." />
-    </form>
-  </div>
+<div id="loginBox">
+  <h2>Login to chérieWare</h2>
+  <input type="email" id="email" placeholder="Email" required />
+  <input type="password" id="password" placeholder="Password" required />
+  <button onclick="handleLogin()">Login / Register</button>
+  <p id="errorMsg"></p>
+</div>
 
-  <script src="/socket.io/socket.io.js"></script>
-  <script>
-    const token = localStorage.getItem('token');
-    const username = localStorage.getItem('username');
-    const role = localStorage.getItem('role');
+<div id="userCount">Users online: 0</div>
 
-    if (!token || !username || !role) {
-      window.location.href = 'login.html';
-    }
+<div id="chatBox" style="display:none;">
+  <div id="chatlog"></div>
+  <form id="chatForm">
+    <span style="color:lime;">guest@cherieware:</span><span style="color:cyan;">~</span>$
+    <input type="text" id="messageInput" autocomplete="off" placeholder="Type a message..." />
+  </form>
+  <button onclick
 
-    const socket = io({ auth: { token } });
-    const chatlog = document.getElementById('chatlog');
-    const form = document.getElementById('chatForm');
-    const input = document.getElementById('messageInput');
-    const userCountDiv = document.getElementById('userCount');
-
-    socket.on('chat message', ({ username, message, role }) => {
-      const div = document.createElement('div');
-      let tagHTML = '';
-      if (role === 'owner') tagHTML = `<span class="tag owner-tag">[OWNER]</span>`;
-      else if (role === 'admin') tagHTML = `<span class="tag admin-tag">[ADMIN]</span>`;
-      div.innerHTML = `${tagHTML}<strong>${username}</strong>: ${message}`;
-      chatlog.appendChild(div);
-      chatlog.scrollTop = chatlog.scrollHeight;
-    });
-
-    socket.on('user count', (count) => {
-      userCountDiv.textContent = `Users online: ${count}`;
-    });
-
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      if (input.value.trim()) {
-        socket.emit('chat message', input.value.trim());
-        input.value = '';
-      }
-    });
-
-    socket.on('connect_error', () => {
-      alert('Auth failed. Please log in again.');
-      localStorage.clear();
-      window.location.href = 'login.html';
-    });
-
-  </script>
-</body>
-</html>
