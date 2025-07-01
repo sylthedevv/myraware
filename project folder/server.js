@@ -11,23 +11,22 @@ const io = socketIo(server);
 
 const SECRET_KEY = process.env.JWT_SECRET || 'default_secret';
 
-// Serve static files
 app.use(express.static(__dirname + '/public'));
 app.use(express.json());
 app.use(cookieParser());
 
-/**
- * LOGIN LOGIC
- */
+let onlineUsers = 0;
+
 app.post('/login', (req, res) => {
   const { username, password } = req.body;
   if (!username) return res.status(400).json({ error: 'Username required' });
 
   let role = 'user';
+  const lower = username.toLowerCase();
 
-  if (username.toLowerCase() === 'cherie' && password === process.env.OWNER_PASSWORD) {
+  if (lower === 'cherie' && password === process.env.OWNER_PASSWORD) {
     role = 'owner';
-  } else if (username.toLowerCase() === 'cherie') {
+  } else if (lower === 'cherie') {
     role = 'user';
   } else if (password === process.env.ADMIN_PASSWORD) {
     role = 'admin';
@@ -37,17 +36,14 @@ app.post('/login', (req, res) => {
   res.json({ token, username, role });
 });
 
-// Store connected sockets
-let connectedUsers = new Set();
-
 io.use((socket, next) => {
   const token = socket.handshake.auth.token;
-  if (!token) return next(new Error('No auth token'));
+  if (!token) return next(new Error('No token'));
 
   try {
-    const payload = jwt.verify(token, SECRET_KEY);
-    socket.username = payload.username;
-    socket.role = payload.role;
+    const decoded = jwt.verify(token, SECRET_KEY);
+    socket.username = decoded.username;
+    socket.role = decoded.role;
     next();
   } catch (err) {
     next(new Error('Invalid token'));
@@ -55,18 +51,14 @@ io.use((socket, next) => {
 });
 
 io.on('connection', (socket) => {
-  connectedUsers.add(socket.id);
-
-  // Send user count to all clients
-  io.emit('user count', connectedUsers.size);
+  onlineUsers++;
+  io.emit('user count', onlineUsers);
 
   console.log(`✅ ${socket.username} (${socket.role}) connected`);
-
-  // Send system message if admin or owner logs in
-  if (socket.role === 'admin' || socket.role === 'owner') {
+  if (socket.role === 'owner' || socket.role === 'admin') {
     io.emit('chat message', {
       username: 'System',
-      message: `${socket.username} has entered as ${socket.role.toUpperCase()}`,
+      message: `${socket.username.toUpperCase()} has logged in as ${socket.role.toUpperCase()}`,
       role: 'system'
     });
   }
@@ -80,8 +72,8 @@ io.on('connection', (socket) => {
   });
 
   socket.on('disconnect', () => {
-    connectedUsers.delete(socket.id);
-    io.emit('user count', connectedUsers.size);
+    onlineUsers--;
+    io.emit('user count', onlineUsers);
     console.log(`❌ ${socket.username} disconnected`);
   });
 });
