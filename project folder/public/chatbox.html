@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>chérieWare Terminal Chat</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="chatbox.css">
+  <style>
+    body {
+      background-color: black;
+      color: lime;
+      font-family: monospace;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    #loginBox, #chatBox {
+      width: 90%;
+      max-width: 600px;
+    }
+
+    input, button {
+      background: #111;
+      color: lime;
+      border: 1px solid lime;
+      padding: 10px;
+      margin: 5px;
+      width: 100%;
+    }
+
+    #chatlog {
+      border: 1px solid lime;
+      padding: 10px;
+      height: 300px;
+      overflow-y: auto;
+      background: #000;
+      margin-bottom: 10px;
+    }
+
+    .tag {
+      font-weight: bold;
+      margin-right: 4px;
+    }
+
+    .owner-tag {
+      background: linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      -webkit-text-fill-color: transparent;
+      animation: rainbow 5s linear infinite;
+    }
+
+    .admin-tag {
+      background: linear-gradient(90deg, gold, orange);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      -webkit-text-fill-color: transparent;
+    }
+
+    @keyframes rainbow {
+      0% { filter: hue-rotate(0deg); }
+      100% { filter: hue-rotate(360deg); }
+    }
+
+    #errorMsg {
+      color: red;
+      text-align: center;
+    }
+
+    #userCount {
+      margin-bottom: 8px;
+      color: rgb(45, 160, 0);
+      font-weight: bold;
+      width: 90%;
+      max-width: 600px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="loginBox">
+    <h2>Login to chérieWare</h2>
+    <input type="text" id="username" placeholder="Username" required />
+    <input type="password" id="password" placeholder="Password (if needed)" />
+    <button onclick="handleLogin()">Login</button>
+    <p id="errorMsg"></p>
+  </div>
+
+  <div id="userCount" style="display: none;">Users online: 0</div>
+
+  <div id="chatBox" style="display:none;">
+    <div id="chatlog"></div>
+    <form id="chatForm">
+      <span style="color:lime;">guest@cherieware:</span><span style="color:cyan;">~</span>$
+      <input type="text" id="messageInput" autocomplete="off" placeholder="Type a message..." />
+    </form>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    let socket;
+
+    async function handleLogin() {
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value;
+
+      const res = await fetch('/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password })
+      });
+
+      const data = await res.json();
+      if (res.ok) {
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('username', data.username);
+        localStorage.setItem('role', data.role);
+        initChat(data.token);
+        document.getElementById('loginBox').style.display = 'none';
+        document.getElementById('chatBox').style.display = 'block';
+        document.getElementById('userCount').style.display = 'block';
+      } else {
+        document.getElementById('errorMsg').textContent = data.error || 'Login failed.';
+      }
+    }
+
+    function initChat(token) {
+      socket = io({ auth: { token } });
+
+      const chatlog = document.getElementById('chatlog');
+      const form = document.getElementById('chatForm');
+      const input = document.getElementById('messageInput');
+      const userCountDiv = document.getElementById('userCount');
+
+      socket.on('chat message', ({ username, message, role }) => {
+        const div = document.createElement('div');
+        let tagHTML = '';
+        if (role === 'owner') tagHTML = `<span class="tag owner-tag">[OWNER]</span>`;
+        else if (role === 'admin') tagHTML = `<span class="tag admin-tag">[ADMIN]</span>`;
+        div.innerHTML = `${tagHTML}<strong>${username}</strong>: ${message}`;
+        chatlog.appendChild(div);
+        chatlog.scrollTop = chatlog.scrollHeight;
+      });
+
+      socket.on('user count', (count) => {
+        userCountDiv.textContent = `Users online: ${count}`;
+      });
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if (input.value.trim()) {
+          socket.emit('chat message', input.value.trim());
+          input.value = '';
+        }
+      });
+
+      socket.on('connect_error', () => {
+        alert('Authentication failed. Please refresh and login again.');
+        location.reload();
+      });
+    }
+
+    // Auto reconnect if token exists
+    const existingToken = localStorage.getItem('token');
+    if (existingToken) {
+      const storedUsername = localStorage.getItem('username') || '';
+      document.getElementById('username').value = storedUsername;
+      document.getElementById('password').value = '';
+      initChat(existingToken);
+      document.getElementById('loginBox').style.display = 'none';
+      document.getElementById('chatBox').style.display = 'block';
+      document.getElementById('userCount').style.display = 'block';
+    }
+  </script>
+</body>
+</html>

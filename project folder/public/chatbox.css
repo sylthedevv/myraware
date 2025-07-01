@@ -1,0 +1,102 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  background-color: #000000;
+  font-family: 'Courier New', Courier, monospace;
+  color: #00ff00;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+}
+
+#terminal {
+  width: 90vw;
+  max-width: 800px;
+  height: 80vh;
+  background-color: #000b00;
+  border: 3px solid #00ff00;
+  border-radius: 8px;
+  box-shadow: 0 0 20px #00ff00;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+#chatlog {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding-right: 10px;
+  font-size: 1.1rem;
+  line-height: 1.4;
+  text-shadow: 0 0 5px #00ff00;
+}
+
+#chatlog div {
+  margin-bottom: 8px;
+  word-wrap: break-word;
+}
+
+#chatForm {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  font-size: 1.1rem;
+  gap: 10px;
+  color: #00ff00;
+}
+
+#chatForm span {
+  font-weight: normal;
+}
+
+#messageInput {
+  flex-grow: 1;
+  background-color: #001400;
+  border: 1.5px solid #00ff00;
+  color: #00ff00;
+  font-family: monospace;
+  font-size: 1.1rem;
+  padding: 10px 15px;
+  border-radius: 4px;
+  outline: none;
+  text-shadow: 0 0 6px #00ff00;
+  box-shadow: inset 0 0 10px #004400;
+  caret-color: #00ff00;
+  transition: box-shadow 0.3s ease;
+}
+
+#messageInput:focus {
+  box-shadow: 0 0 20px #00ff00, inset 0 0 15px #00ff00;
+}
+
+.tag {
+  font-weight: bold;
+  margin-right: 8px;
+  user-select: none;
+}
+
+.owner-tag {
+  background: linear-gradient(90deg, red, orange, yellow, green, cyan, blue, violet);
+  background-size: 400% 400%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: rainbow 4s linear infinite;
+  text-shadow: 0 0 7px #fff;
+}
+
+.admin-tag {
+  color: #FFD700;
+  text-shadow:
+    0 0 7px #FFD700,
+    0 0 15px #FFA500,
+    0 0 20px #FFA500;
+  user-select: none;
+}
+
+@keyframes rainbow {
+  0% { background-position: 0% }
+  100% { background-position: 400% }
+}
