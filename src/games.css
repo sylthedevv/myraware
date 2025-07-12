@@ -98,4 +98,25 @@ body {
 .site-container {
   max-width: 100%;
   padding: 10px;
-  box-sizing: border-box;}
+  box-sizing: border-box;
+}
+
+.game-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+    }
+
+input {
+    border: none;
+    background:  #ffe6f2;
+    color: #ff69b4;
+    width: 500px;
+    padding: 10px;
+    border-radius: 20px;
+    outline: none;
+  font-family: "Poppins";
+   border: 2px solid #ff69b4;
+	text-align: center;
+}
